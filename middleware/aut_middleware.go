@@ -46,6 +46,12 @@ func NewAuthMiddlewareHandler(redisRepo repositories.RedisClientInterface, gormR
 
 func (handler *AuthMiddlewareHandler) IsAuthorized(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "*")
+		w.Header().Set("Access-Control-Allow-Headers", "*")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+
 		request := mux.CurrentRoute(r).GetName()
 		if utils.IsContains(request, handler.RoutesWithoutAuth) {
 			next.ServeHTTP(w, r)

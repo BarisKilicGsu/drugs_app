@@ -44,7 +44,10 @@ func NewAuthHandler(gormRepo repositories.GormRepositoryInterface,
 func (handler *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 	utils.LogHTTPRequest(r, "Login")
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
 	loginRequest := &models.LoginRequest{}
 	err := utils.GenerateModelFromBody(loginRequest, w, r)
 	if err != nil {
@@ -155,7 +158,10 @@ func (handler *AuthHandler) Login(w http.ResponseWriter, r *http.Request) {
 
 func (handler *AuthHandler) Signup(w http.ResponseWriter, r *http.Request) {
 	utils.LogHTTPRequest(r, "Signup")
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
 	signupRequest := &models.SignupRequest{}
 	err := utils.GenerateModelFromBody(signupRequest, w, r)
 	if err != nil {
@@ -265,7 +271,10 @@ func (handler *AuthHandler) Signup(w http.ResponseWriter, r *http.Request) {
 
 func (handler *AuthHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	utils.LogHTTPRequest(r, "Logout")
-
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "*")
+	w.Header().Set("Access-Control-Allow-Headers", "*")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
 	authHeader := strings.Split(r.Header.Get("Authorization"), "Bearer ")
 	if len(authHeader) != 2 {
 		zap.L().Error("Failed logout because toke could not be found")
